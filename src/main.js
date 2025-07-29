@@ -53,7 +53,7 @@ const asciiArt = `
                    *****+===--:::::::-==+*+=+*###*=-::::::.:::::::::=+++*********==-::::::::::=+*#%%%%%%%@@@@@@@@@@@@@@@@@%%%@@@@@@@%%%%%               
                    *****++==----:::-==+*#****+++=::::::::::::::...:...::::-==+****=--::::::::-=+*##%%%%@@@@@@@@@@@@@@@@@@@@%%@@@@@@%%%%%                
                     ******==-::::--=+*****+=--::::::::::::::::........:::::-==+##*+=-::::::::=+*####%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%                
-                     ****+==-::::--=+***+==-::::::::::::::::::......:::::::==+**#+==--::::::=*%%%%%%%@@@@@@@@@@@@@@@@@@@@@%@@@@@@@%%%%%                
+                     ****+==-::::--=+***+==-:::::::::::::::::::......:::::::==+**#+==--::::::=*%%%%%%%@@@@@@@@@@@@@@@@@@@@@%@@@@@@@%%%%%                
                          ====-::---==*****+=-::::::::-*%%#%####+-:::::..::::-=++==---=====*#%%%@@%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%                 
                           =====-----==+**+==-::::::::*%%%%%%%%%%*::::::.:::=+*+===-=+***#%#%@@%%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                         
                       ***++=-::::--=****+===---:::::::::-===-::::.....:::::-=***#*+=---::::-==+**#%%%%%@@@@@@@@@@@@@@@@@@%@@@@@@@@@%%%%%                
@@ -67,7 +67,7 @@ const asciiArt = `
                                             %%%%%@@%%%%%%@@@@@@@%@@@@%%@@@@@@@@%@@@@@@@@@%@@@@@%@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                    
                                              %%%%@@@@%@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                    
                                               %%%%@@@%@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                     
-                                               %%%@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                      
+                                               %%%@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                      
                                                 %%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%                       
                                                  @%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%                         
                                                   %%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%@                          
@@ -116,30 +116,10 @@ function renderMainContent() {
   `;
 }
 
-// Function to convert ASCII art to interactive spans with 2D positioning
-function wrapAsciiCharsWithSpans(asciiArt) {
-  const lines = asciiArt.split('\n');
-  let globalIndex = 0;
-  
-  return lines.map((line, rowIndex) => {
-    return line.split('').map((char, colIndex) => {
-      const currentIndex = globalIndex++;
-      
-      // Skip spaces but still track their position
-      if (char === ' ') {
-        return `<span class="ascii-char ascii-space" data-index="${currentIndex}" data-row="${rowIndex}" data-col="${colIndex}"> </span>`;
-      }
-      // Wrap all other characters in interactive spans with position data
-      return `<span class="ascii-char ascii-symbol" data-index="${currentIndex}" data-row="${rowIndex}" data-col="${colIndex}">${char}</span>`;
-    }).join('');
-  }).join('\n');
-}
-
 function renderGraphicArea() {
-  const interactiveAsciiArt = wrapAsciiCharsWithSpans(asciiArt);
   return `
     <div class="graphic-area">
-      <div class="ascii-art">${interactiveAsciiArt}</div>
+      <div class="ascii-art">${asciiArt}</div>
     </div>
   `;
 }
@@ -171,92 +151,6 @@ function renderApp() {
 // Initialize the app
 function init() {
   document.querySelector('#app').innerHTML = renderApp();
-  
-  // Add interactive functionality to ASCII art
-  setupAsciiInteractivity();
-}
-
-// Add interactivity to ASCII characters
-function setupAsciiInteractivity() {
-  const asciiChars = document.querySelectorAll('.ascii-symbol');
-  
-  asciiChars.forEach((char) => {
-    char.addEventListener('mouseenter', (e) => {
-      applyRippleEffect(e.target);
-    });
-    
-    char.addEventListener('mouseleave', (e) => {
-      clearRippleEffect(e.target);
-    });
-  });
-}
-
-// Apply ripple effect to nearby characters based on 2D position
-function applyRippleEffect(centerChar) {
-  const asciiChars = document.querySelectorAll('.ascii-symbol');
-  const centerRow = parseInt(centerChar.dataset.row);
-  const centerCol = parseInt(centerChar.dataset.col);
-  const rippleRadius = 8; // Maximum distance to affect
-  
-  // Add primary hover effect to center character
-  centerChar.classList.add('primary-hover');
-  
-  // Calculate which characters are "nearby" based on 2D distance
-  asciiChars.forEach((char) => {
-    if (char === centerChar) return; // Skip the center character
-    
-    const charRow = parseInt(char.dataset.row);
-    const charCol = parseInt(char.dataset.col);
-    
-    // Calculate 2D Euclidean distance
-    const distance = Math.sqrt(
-      Math.pow(charRow - centerRow, 2) + Math.pow(charCol - centerCol, 2)
-    );
-    
-    if (distance <= rippleRadius) {
-      // Create ripple effect classes based on 2D distance
-      if (distance <= 2) {
-        char.classList.add('ripple-close');
-      } else if (distance <= 4) {
-        char.classList.add('ripple-medium');
-      } else if (distance <= rippleRadius) {
-        char.classList.add('ripple-far');
-      }
-      
-      // Add a small delay for wave effect based on distance
-      setTimeout(() => {
-        const intensity = Math.max(0.1, 1 - (distance / rippleRadius));
-        char.style.transform = `scale(${1 + (0.4 * intensity)}) rotate(${(Math.random() * 20 - 10) * intensity}deg)`;
-        char.style.color = getRandomRippleColor();
-        char.style.textShadow = `0 0 ${12 * intensity}px currentColor`;
-      }, distance * 20); // Staggered timing for wave effect
-    }
-  });
-}
-
-// Clear ripple effect
-function clearRippleEffect(centerChar) {
-  const asciiChars = document.querySelectorAll('.ascii-symbol');
-  
-  // Remove primary hover effect
-  centerChar.classList.remove('primary-hover');
-  
-  // Clear all ripple effects
-  asciiChars.forEach((char) => {
-    char.classList.remove('ripple-close', 'ripple-medium', 'ripple-far');
-    char.style.transform = '';
-    char.style.color = '';
-    char.style.textShadow = '';
-  });
-}
-
-// Get random color for ripple effect
-function getRandomRippleColor() {
-  const colors = [
-    '#ff6b35', '#4ecdc4', '#45b7d1', '#f7931e', '#c44569', 
-    '#6c5ce7', '#a8e6cf', '#ff8b94', '#ffd93d', '#6bcf7f'
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
 }
 
 // Start the application
