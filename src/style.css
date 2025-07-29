@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,31 +7,232 @@
 
 html, body {
   height: 100vh;
-  overflow: hidden; /* Prevents scrolling */
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-body {
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  overflow-x: hidden;
 }
 
 #app {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Main layout */
+.portfolio-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 60px 40px 40px;
+  gap: 40px;
+  overflow-x: hidden;
 }
 
-.simple-page {
-  text-align: center;
+/* Main content area */
+.main-content {
+  flex: 0 0 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-left: 100px;
+  margin-top: 80px;
 }
 
-h1 {
-  font-size: 2rem;
+.content-section {
+  font-size: 16px;
+  line-height: 1.6;
   color: #333;
+}
+
+.content-section p {
+  margin-bottom: 20px;
+}
+
+.content-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Highlight text */
+.highlight {
+  color: #002FA7;
+  font-weight: 500;
+}
+
+/* ASCII Art / Graphic area */
+.graphic-area {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-family: 'Courier New', monospace;
+  font-size: 6px;
+  line-height: 1.1;
+  color: #000;
+  white-space: pre;
+  overflow: hidden;
+  padding-left: 150px;
+  letter-spacing: 0px;
+}
+
+.ascii-art {
+  transform: scale(1);
+  transform-origin: left center;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  overflow: hidden;
+  font-variant-ligatures: none;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.location {
   font-weight: 400;
+}
+
+.social-links {
+  display: flex;
+  gap: 24px;
+}
+
+.social-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+.social-link:hover {
+  color: #000;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .graphic-area {
+    font-size: 5px;
+    line-height: 1.0;
+  }
+  
+  .ascii-art {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 1024px) {
+  .portfolio-container {
+    padding: 40px 20px 80px;
+    gap: 30px;
+  }
+  
+  .main-content {
+    flex: 0 0 400px;
+    margin-left: 40px;
+    margin-top: 60px;
+  }
+  
+  .graphic-area {
+    font-size: 4px;
+    line-height: 1.0;
+    padding-left: 10px;
+  }
+  
+  .ascii-art {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-container {
+    flex-direction: column;
+    padding: 30px 20px 100px;
+    gap: 30px;
+  }
+  
+  .main-content {
+    flex: none;
+    margin-left: 0;
+    margin-top: 40px;
+  }
+  
+  .graphic-area {
+    display: none;
+  }
+  
+  .footer {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+  
+  .social-links {
+    gap: 20px;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease;
+}
+
+/* Typography refinements */
+h1, h2, h3 {
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* Focus styles for accessibility */
+.social-link:focus {
+  outline: 2px solid #002FA7;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.social-link {
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-link:hover {
+  animation: bounce 0.6s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  70% {
+    transform: translateY(-4px);
+  }
 }
