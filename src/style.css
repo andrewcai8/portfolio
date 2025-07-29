@@ -87,6 +87,241 @@ html, body {
   max-height: 80vh;
   overflow: hidden;
   font-variant-ligatures: none;
+  /* GPU acceleration for better performance */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Interactive ASCII Characters */
+.ascii-char {
+  display: inline;
+  transition: all 0.15s ease-out !important;
+  cursor: default;
+}
+
+/* Symbol characters (non-space) get interactive effects */
+.ascii-symbol:hover {
+  transform: scale(1.5);
+  color: #ff6b35;
+  text-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+  z-index: 10;
+  position: relative;
+}
+
+/* Primary hover state (center character) */
+.ascii-symbol.primary-hover {
+  transform: scale(2.2) !important;
+  color: #ff6b35 !important;
+  text-shadow: 0 0 15px rgba(255, 107, 53, 0.9) !important;
+  z-index: 20;
+  position: relative;
+  animation: primary-pulse 0.6s ease-in-out;
+}
+
+/* Ripple effect classes */
+.ascii-symbol.ripple-close {
+  z-index: 15;
+  position: relative;
+  transition: all 0.2s ease-out;
+}
+
+.ascii-symbol.ripple-medium {
+  z-index: 12;
+  position: relative;
+  transition: all 0.25s ease-out;
+}
+
+.ascii-symbol.ripple-far {
+  z-index: 10;
+  position: relative;
+  transition: all 0.3s ease-out;
+}
+
+/* Primary pulse animation */
+@keyframes primary-pulse {
+  0% {
+    transform: scale(1.5);
+    text-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+  }
+  50% {
+    transform: scale(2.5);
+    text-shadow: 0 0 25px rgba(255, 107, 53, 1);
+  }
+  100% {
+    transform: scale(2.2);
+    text-shadow: 0 0 15px rgba(255, 107, 53, 0.9);
+  }
+}
+
+/* Enhanced wave effect for better visibility */
+.ascii-symbol.ripple-close {
+  animation: ripple-wave-close 0.4s ease-out;
+}
+
+.ascii-symbol.ripple-medium {
+  animation: ripple-wave-medium 0.5s ease-out;
+}
+
+.ascii-symbol.ripple-far {
+  animation: ripple-wave-far 0.6s ease-out;
+}
+
+@keyframes ripple-wave-close {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4) rotate(3deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple-wave-medium {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(2deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple-wave-far {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1) rotate(1deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Different hover effects for variety - now work with ripple system */
+.ascii-symbol[data-index*="1"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #4ecdc4;
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.7);
+  transform: scale(1.8) rotate(5deg);
+}
+
+.ascii-symbol[data-index*="2"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #45b7d1;
+  text-shadow: 0 0 12px rgba(69, 183, 209, 0.8);
+  transform: scale(1.6) rotate(-3deg);
+}
+
+.ascii-symbol[data-index*="3"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #f7931e;
+  text-shadow: 0 0 8px rgba(247, 147, 30, 0.6);
+  transform: scale(1.4) rotate(8deg);
+}
+
+.ascii-symbol[data-index*="4"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #c44569;
+  text-shadow: 0 0 15px rgba(196, 69, 105, 0.9);
+  transform: scale(2.0) rotate(-5deg);
+}
+
+.ascii-symbol[data-index*="5"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #6c5ce7;
+  text-shadow: 0 0 10px rgba(108, 92, 231, 0.7);
+  transform: scale(1.7) rotate(3deg);
+}
+
+.ascii-symbol[data-index*="6"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #a8e6cf;
+  text-shadow: 0 0 8px rgba(168, 230, 207, 0.6);
+  transform: scale(1.5) rotate(-8deg);
+}
+
+.ascii-symbol[data-index*="7"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #ff8b94;
+  text-shadow: 0 0 12px rgba(255, 139, 148, 0.8);
+  transform: scale(1.9) rotate(4deg);
+}
+
+.ascii-symbol[data-index*="8"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #ffd93d;
+  text-shadow: 0 0 10px rgba(255, 217, 61, 0.7);
+  transform: scale(1.6) rotate(-6deg);
+}
+
+.ascii-symbol[data-index*="9"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #6bcf7f;
+  text-shadow: 0 0 14px rgba(107, 207, 127, 0.8);
+  transform: scale(1.8) rotate(7deg);
+}
+
+.ascii-symbol[data-index*="0"]:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  color: #4b6584;
+  text-shadow: 0 0 8px rgba(75, 101, 132, 0.6);
+  transform: scale(1.4) rotate(-4deg);
+}
+
+/* Special effects for specific characters - adjusted for ripple system */
+.ascii-symbol:hover:not(.primary-hover):not(.ripple-close):not(.ripple-medium):not(.ripple-far) {
+  animation: pulse-glow 0.6s ease-in-out;
+}
+
+/* Space characters remain invisible but still get subtle effects */
+.ascii-space:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+  100% {
+    text-shadow: 0 0 5px currentColor;
+  }
+}
+
+/* Random sparkle effect for some characters */
+.ascii-symbol[data-index*="11"]:hover,
+.ascii-symbol[data-index*="22"]:hover,
+.ascii-symbol[data-index*="33"]:hover,
+.ascii-symbol[data-index*="44"]:hover,
+.ascii-symbol[data-index*="55"]:hover {
+  animation: sparkle 0.8s ease-in-out;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(2.2) rotate(10deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.8) rotate(-5deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(2.0) rotate(8deg);
+    opacity: 0.9;
+  }
 }
 
 /* Footer */
@@ -132,6 +367,23 @@ html, body {
   .ascii-art {
     transform: scale(0.9);
   }
+  
+  /* Adjust hover effects for smaller screens */
+  .ascii-symbol:hover {
+    transform: scale(1.3);
+  }
+  
+  .ascii-symbol[data-index*="1"]:hover {
+    transform: scale(1.5) rotate(5deg);
+  }
+  
+  .ascii-symbol[data-index*="2"]:hover {
+    transform: scale(1.4) rotate(-3deg);
+  }
+  
+  .ascii-symbol[data-index*="4"]:hover {
+    transform: scale(1.6) rotate(-5deg);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -154,6 +406,24 @@ html, body {
   
   .ascii-art {
     transform: scale(0.8);
+  }
+  
+  /* Further reduce hover effects for tablets */
+  .ascii-symbol:hover {
+    transform: scale(1.2);
+  }
+  
+  .ascii-symbol[data-index*="1"]:hover,
+  .ascii-symbol[data-index*="2"]:hover,
+  .ascii-symbol[data-index*="3"]:hover,
+  .ascii-symbol[data-index*="4"]:hover,
+  .ascii-symbol[data-index*="5"]:hover,
+  .ascii-symbol[data-index*="6"]:hover,
+  .ascii-symbol[data-index*="7"]:hover,
+  .ascii-symbol[data-index*="8"]:hover,
+  .ascii-symbol[data-index*="9"]:hover,
+  .ascii-symbol[data-index*="0"]:hover {
+    transform: scale(1.3) rotate(2deg);
   }
 }
 
@@ -191,6 +461,12 @@ html, body {
 /* Smooth transitions */
 * {
   transition: color 0.2s ease;
+}
+
+/* Performance optimization for interactive characters */
+.ascii-symbol {
+  will-change: transform, color, text-shadow;
+  backface-visibility: hidden;
 }
 
 /* Typography refinements */
