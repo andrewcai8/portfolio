@@ -67,7 +67,7 @@ const asciiArt = `
                                             %%%%%@@%%%%%%@@@@@@@%@@@@%%@@@@@@@@%@@@@@@@@@%@@@@@%@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                    
                                              %%%%@@@@%@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                    
                                               %%%%@@@%@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                     
-                                               %%%@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                      
+                                               %%%@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%                      
                                                 %%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%                       
                                                  @%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%                         
                                                   %%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%@                          
@@ -151,6 +151,123 @@ function renderApp() {
 // Initialize the app
 function init() {
   document.querySelector('#app').innerHTML = renderApp();
+  
+  // Set up the hover reveal effect for ASCII art
+  setupASCIIHoverEffect();
+}
+
+// ASCII art hover reveal effect
+function setupASCIIHoverEffect() {
+  const asciiArt = document.querySelector('.ascii-art');
+  
+  if (!asciiArt) return;
+  
+  // Track mouse movement over ASCII art
+  asciiArt.addEventListener('mousemove', (e) => {
+    const rect = asciiArt.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Convert to percentages for CSS
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    
+    // Update CSS custom properties for mask position
+    asciiArt.style.setProperty('--mouse-x', `${xPercent}%`);
+    asciiArt.style.setProperty('--mouse-y', `${yPercent}%`);
+    
+    // Add active class for reveal effect
+    asciiArt.classList.add('revealing');
+  });
+  
+  // Remove reveal effect when mouse leaves
+  asciiArt.addEventListener('mouseleave', () => {
+    asciiArt.classList.remove('revealing');
+  });
+  
+  // Touch support for mobile devices
+  asciiArt.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const rect = asciiArt.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    
+    asciiArt.style.setProperty('--mouse-x', `${xPercent}%`);
+    asciiArt.style.setProperty('--mouse-y', `${yPercent}%`);
+    asciiArt.classList.add('revealing');
+    
+    // Add glitch squares for touch
+    addGlitchSquares(asciiArt);
+  });
+  
+  asciiArt.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const rect = asciiArt.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    
+    asciiArt.style.setProperty('--mouse-x', `${xPercent}%`);
+    asciiArt.style.setProperty('--mouse-y', `${yPercent}%`);
+  });
+  
+  asciiArt.addEventListener('touchend', () => {
+    // Keep the effect for a moment then fade out
+    setTimeout(() => {
+      asciiArt.classList.remove('revealing');
+    }, 500);
+  });
+  
+  // Add some glitch areas randomly
+  asciiArt.addEventListener('mouseenter', () => {
+    // Add random glitch squares
+    addGlitchSquares(asciiArt);
+  });
+}
+
+function addGlitchSquares(container) {
+  // Remove existing glitch squares
+  const existingSquares = container.querySelectorAll('.glitch-square');
+  existingSquares.forEach(square => square.remove());
+  
+  // Add 3-5 random glitch squares
+  const numSquares = Math.floor(Math.random() * 3) + 3;
+  
+  for (let i = 0; i < numSquares; i++) {
+    setTimeout(() => {
+      const square = document.createElement('div');
+      square.className = 'glitch-square';
+      
+      // Random position
+      const x = Math.random() * 80 + 10; // 10-90%
+      const y = Math.random() * 80 + 10; // 10-90%
+      
+      square.style.left = `${x}%`;
+      square.style.top = `${y}%`;
+      
+      // Calculate background position to match the image area
+      // Since the image is scaled to fit and left-aligned, we need to match the positioning
+      const bgX = -x * 8; // 800% background-size means 8x scale
+      const bgY = -y * 8;
+      square.style.backgroundPosition = `${bgX}% ${bgY}%`;
+      
+      container.appendChild(square);
+      
+      // Remove after animation
+      setTimeout(() => {
+        if (square.parentNode) {
+          square.remove();
+        }
+      }, 1000);
+    }, i * 150);
+  }
 }
 
 // Start the application
