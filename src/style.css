@@ -63,6 +63,23 @@ html, body {
   font-weight: 500;
 }
 
+/* Remove default link styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Links containing highlighted text */
+a .highlight {
+  text-decoration: underline;
+  text-decoration-color: #B4472C;
+  text-underline-offset: 2px;
+}
+
+a:hover .highlight {
+  text-decoration-color: #943a24;
+}
+
 /* ASCII Art / Graphic area */
 .graphic-area {
   flex: 1;

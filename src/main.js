@@ -519,15 +519,13 @@ const asciiArtThree =  `
                                                                                            >>>>>>>>>>>>^^^>>><))(((((]][[[}{####%%%%%%%%%%@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%@@@@@@@@@@%%%%%%%%%%%%%%%#####{{{{{}}[[]]]]]]](())))`
 // Main content (combining the about section as default content)
 const mainContent = `
-  <p>Hey, I'm <span class="highlight">Andrew</span>.</p>
+  <p>Hey, I'm Andrew</span>.</p>
   
-  <p>I'm building things that I hope will help the world. Right now, that’s <span class="highlight">Cameron</span>, a framework that transforms any camera into an AI agent.</p>
+  <p>I'm building things that I hope will help the world. Right now, that’s <a href="https://cameronai.app" target="_blank" rel="noopener noreferrer"><span class="highlight">Cameron</span></a>, a framework that transforms any camera into an AI agent.</p>
   
-  <p>I'm an intern at <span class="highlight">Relixir (YC X25)</span> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve entered two hackathons and <span class="highlight">won both</span>, taking the grand prize at UC Berkeley’s AI Hackathon, the world’s largest AI hackathon, and at Caltech’s Hacktech, winning $16k. Before all that, I built a <span class="highlight">CNC machine</span> from scratch in high school, starting my knack to build meaningful things.</p>
+  <p>I'm an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve entered two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, taking the grand prize at UC Berkeley’s AI Hackathon, the world’s largest AI hackathon, and at Caltech’s Hacktech, winning $16k. Before all that, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch in high school, starting my drive to build meaningful things.</p>
   
-  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life.</p>
-  
-  <p>My favorite color is <span class="highlight">#B4472C</span> and listening to Mac Miller keeps me going :)</p>
+  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life. My favorite color is <span class="highlight">#B4472C</span> and listening to Mac Miller keeps me going :)</p>
 `;
 
 
