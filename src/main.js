@@ -523,9 +523,12 @@ const mainContent = `
   
   <p>I'm building things that I hope will help the world. Right now, that’s <a href="https://cameronai.app" target="_blank" rel="noopener noreferrer"><span class="highlight">Cameron</span></a>, a framework that transforms any camera into an AI agent.</p>
   
-  <p>I'm an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve entered two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, taking the grand prize at UC Berkeley’s AI Hackathon, the world’s largest AI hackathon, and at Caltech’s Hacktech, winning $16k. Before all that, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch in high school, starting my drive to build meaningful things.</p>
+  <p>I'm an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve done two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, taking the grand prize at UC Berkeley’s AI Hackathon, the world’s largest AI hackathon, and at Caltech’s Hacktech, winning $16k. Before all that, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch in high school, starting my drive to build meaningful things.</p>
   
-  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life. My favorite color is <span class="highlight">#B4472C</span> and listening to Mac Miller keeps me going :)</p>
+  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life. My favorite color is <span class="highlight">#B4472C</span> and listening to Mac Miller keeps me going!</p>
+
+  <p>Reach out to me about anything, I'd love to chat! andrewca78@gmail.com</p>
+
 `;
 
 
@@ -723,12 +726,11 @@ function renderGraphicArea() {
 function renderFooter() {
   return `
     <footer class="footer">
-      <div class="location">Currently: Shanghai</div>
+      <div class="location">@2025 made by andrew</div>
       <div class="social-links">
         <a href="https://x.com/andrewcai8" class="social-link" target="_blank" rel="noopener noreferrer">X</a>
         <a href="https://www.linkedin.com/in/andrewcai8/" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/andrewcai8/" class="social-link" target="_blank" rel="noopener noreferrer">Github</a>
-        <a href="https://www.instagram.com/andrewcaii/" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
     </footer>
   `;
