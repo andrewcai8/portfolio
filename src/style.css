@@ -70,7 +70,7 @@ html, body {
   align-items: flex-start;
   justify-content: flex-start;
   font-family: 'Courier New', monospace;
-  font-size: 2.0px;
+  font-size: 2.3px;
   line-height: 1;
   color: #000;
   white-space: pre;
@@ -79,17 +79,43 @@ html, body {
   letter-spacing: 0px;
 }
 
+.ascii-container {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  overflow: hidden;
+  position: relative;
+  margin-top: 100px;
+  margin-left: 120px;
+}
+
 .ascii-art {
   transform: scale(1);
   transform-origin: left center;
   width: 100%;
   height: auto;
-  max-height: 80vh;
-  overflow: hidden;
   font-variant-ligatures: none;
   position: relative;
-  margin-top: 150px;
-  margin-left: -10px;
+  margin: 0;
+  white-space: pre;
+  font-family: 'Courier New', monospace;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  will-change: contents;
+  backface-visibility: hidden;
+  /* Optimize for frequent content updates */
+  contain: layout style paint;
+}
+
+.ascii-char {
+  display: inline;
+  position: relative;
+  transition: none; /* Disable transitions for manual animation control */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 
@@ -134,7 +160,7 @@ html, body {
     line-height: 1.0;
   }
   
-  .ascii-art {
+  .ascii-container {
     transform: scale(0.9);
   }
 }
@@ -157,7 +183,7 @@ html, body {
     padding-left: 10px;
   }
   
-  .ascii-art {
+  .ascii-container {
     transform: scale(0.8);
   }
 }
