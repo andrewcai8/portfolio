@@ -750,7 +750,7 @@ function init() {
     const container = document.getElementById('ascii-container');
     if (container) {
       console.log('Initializing ASCII animator with container:', container);
-      asciiAnimator = new ASCIIArtAnimator(container, [asciiArt, asciiArtTwo, asciiArtThree]);
+      asciiAnimator = new ASCIIArtAnimator(container, [asciiArt, asciiArtTwo]);
     } else {
       console.error('ASCII container not found!');
     }
