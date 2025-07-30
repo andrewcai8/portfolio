@@ -519,13 +519,18 @@ const asciiArtThree =  `
                                                                                            >>>>>>>>>>>>^^^>>><))(((((]][[[}{####%%%%%%%%%%@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%@@@@@@@@@@%%%%%%%%%%%%%%%#####{{{{{}}[[]]]]]]](())))`
 // Main content (combining the about section as default content)
 const mainContent = `
-  <p>Hey, I'm Andrew</span>.</p>
-  <p>My hope is to build meaningful things that people love & helps the world</span>.</p>
-  <p>I'm currently building <span class="highlight">Cameron</span>.</p>
-  <p>In my spare time...</p>
-  <p>I currently intern at Relixir (YC X25) and I'm a Computer Science & Engineering + Math Student at UC Irvine.</p>
-  <p>My favorite color is <span class="highlight">#</span>...</p>
+  <p>Hey, I'm <span class="highlight">Andrew</span>.</p>
+  
+  <p>I'm building things that I hope will help the world. Right now, that’s <span class="highlight">Cameron</span>, a framework that transforms any camera into an AI agent.</p>
+  
+  <p>I'm an intern at <span class="highlight">Relixir (YC X25)</span> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve entered two hackathons and <span class="highlight">won both</span>, taking the grand prize at UC Berkeley’s AI Hackathon, the world’s largest AI hackathon, and at Caltech’s Hacktech, winning $16k. Before all that, I built a <span class="highlight">CNC machine</span> from scratch in high school, starting my knack to build meaningful things.</p>
+  
+  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life.</p>
+  
+  <p>My favorite color is <span class="highlight">#B4472C</span> and listening to Mac Miller keeps me going :)</p>
 `;
+
+
 
 // Render functions
 function renderMainContent() {
