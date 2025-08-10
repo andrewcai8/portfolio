@@ -731,7 +731,7 @@ function renderFooter() {
         <a href="https://www.linkedin.com/in/andrewcai8/" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/andrewcai8/" class="social-link" target="_blank" rel="noopener noreferrer">Github</a>
       </div>
-      <div class="location">@2025 made by andrew</div>
+      <div class="location">@2025 made by andrew :)</div>
     </footer>
   `;
 }
