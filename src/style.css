@@ -206,41 +206,16 @@ a:hover .highlight {
 }
 
 @media (max-width: 768px) {
-  /* Prevent scrolling on mobile */
-  html, body {
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-  }
-  
-  #app {
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-  }
-  
   .portfolio-container {
     flex-direction: column;
-    padding: 20px;
-    gap: 20px;
-    height: 100vh;
-    overflow: hidden;
-    justify-content: space-between;
+    padding: 30px 20px 100px;
+    gap: 30px;
   }
   
   .main-content {
-    flex: 1;
+    flex: none;
     margin-left: 0;
-    margin-top: 20px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .content-section {
-    overflow: hidden;
+    margin-top: 40px;
   }
   
   .graphic-area {
@@ -249,13 +224,11 @@ a:hover .highlight {
   
   .footer {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     text-align: center;
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    padding: 20px 0;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
   }
   
   .social-links {
