@@ -521,9 +521,9 @@ const asciiArtThree =  `
 const mainContent = `
   <p>Hey, I'm Andrew</span>.</p>
   
-  <p>I build things that I hope will help the world.</p>
-  
-  <p>I'm an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a> and study Computer Science & Engineering and Math at UC Irvine. On the side, I’ve done two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech’s Hacktech, winning $16k. Before all that, in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
+  <p>I'm a founding engineer at <a href="https://virio.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Virio</span></a>, hoping to build something that will help the world :)</p>
+
+  <p>In the past, I was an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a>. I've done two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech's Hacktech, winning $16k. And in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
   
   <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life. My favorite color is <span class="highlight">#B4472C</span> and listening to the Graduation album keeps me going.</p>
 
