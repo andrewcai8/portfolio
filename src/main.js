@@ -519,21 +519,62 @@ const asciiArtThree =  `
                                                                                            >>>>>>>>>>>>^^^>>><))(((((]][[[}{####%%%%%%%%%%@@%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%@@@@@@@@@@%%%%%%%%%%%%%%%#####{{{{{}}[[]]]]]]](())))`
 // Main content (combining the about section as default content)
 const mainContent = `
-  <p>Hey, I'm Andrew</span>.</p>
+  <p>Hey, I'm <span class="clickable-text" data-category="andrew">Andrew</span>.</p>
   
   <p>I'm a founding engineer at <a href="https://virio.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Virio</span></a>, hoping to build something that will help the world :)</p>
 
-  <p>In the past, I was an intern at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a>. I've done two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech's Hacktech, winning $16k. And in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
+  <p>In the past, I interned at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a>. Did two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech's Hacktech, winning $16k. And in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
   
-  <p>Outside of code, you’ll find me cafe hopping, walking around, admiring cats, or just reflecting on life. My favorite color is <span class="highlight">#B4472C</span> and listening to the Graduation album keeps me going.</p>
+  <p>Outside of code, you'll find me cafe hopping, <span class="clickable-text" data-category="walks">walking around</span>, <span class="clickable-text" data-category="cats">admiring cats</span>, or just reflecting on life.</p>
 
-  <p>Reach out to me about anything, I'd love to chat! andrewca78[at]gmail[dot]com</p>
+  <p>Reach out to me about anything, I'd love to meet! andrewca78[at]gmail[dot]com</p>
 
 `;
+
+// Image categories mapping
+const imageCategories = {
+  andrew: ['/images/andrew.png', '/images/andrew1.jpg'],
+  cats: ['/images/cat.jpg', '/images/cat1.jpg'],
+  walks: ['/images/scenery1.jpg', '/images/scenery2.jpg']
+};
+
+// Current display state
+let currentDisplayMode = 'ascii'; // 'ascii' or 'image'
+let currentCategory = null;
+let currentImageIndex = 0;
+
+// Personal photos data
+const personalPhotos = [
+  { src: '/images/andrew.jpg', caption: 'me :)', rotate: -3 },
+  { src: '/images/cat.jpg', caption: 'friend', rotate: 2 },
+  { src: '/images/scenery1.jpg', caption: 'walks', rotate: -2 },
+  { src: '/images/cat1.jpg', caption: 'another friend', rotate: 3 },
+  { src: '/images/scenery2.jpg', caption: 'views', rotate: -1 },
+  { src: '/images/andrew1.jpg', caption: 'also me', rotate: 2 },
+];
 
 
 
 // Render functions
+function renderPhotoGallery() {
+  const photos = personalPhotos.map((photo, index) => `
+    <div class="polaroid" style="--rotate: ${photo.rotate}deg; --delay: ${index * 0.1}s">
+      <div class="polaroid-inner">
+        <img src="${photo.src}" alt="${photo.caption}" loading="lazy" />
+        <span class="polaroid-caption">${photo.caption}</span>
+      </div>
+    </div>
+  `).join('');
+  
+  return `
+    <div class="photo-gallery">
+      <div class="photo-strip">
+        ${photos}
+      </div>
+    </div>
+  `;
+}
+
 function renderMainContent() {
   return `
     <main class="main-content">
@@ -719,8 +760,99 @@ function renderGraphicArea() {
   return `
     <div class="graphic-area">
       <div id="ascii-container" class="ascii-container"></div>
+      <div id="image-display" class="image-display" style="display: none;">
+        <img id="display-image-1" class="display-img" src="" alt="" />
+        <img id="display-image-2" class="display-img" src="" alt="" />
+      </div>
     </div>
   `;
+}
+
+// Show image for a category
+function showCategoryImage(category) {
+  const asciiContainer = document.getElementById('ascii-container');
+  const imageDisplay = document.getElementById('image-display');
+  const displayImage1 = document.getElementById('display-image-1');
+  const displayImage2 = document.getElementById('display-image-2');
+  
+  if (!asciiContainer || !imageDisplay || !displayImage1 || !displayImage2) return;
+  
+  // If clicking the same category, cycle to next image pair
+  if (currentCategory === category) {
+    currentImageIndex = (currentImageIndex + 2) % imageCategories[category].length;
+  } else {
+    currentCategory = category;
+    currentImageIndex = 0;
+  }
+  
+  // Hide ASCII, show images
+  asciiContainer.style.display = 'none';
+  imageDisplay.style.display = 'flex';
+  
+  // Set image sources (show two images side by side)
+  const images = imageCategories[category];
+  displayImage1.src = images[currentImageIndex % images.length];
+  displayImage1.alt = category;
+  displayImage2.src = images[(currentImageIndex + 1) % images.length];
+  displayImage2.alt = category;
+  
+  // Update active state on clickable text
+  document.querySelectorAll('.clickable-text').forEach(el => {
+    el.classList.remove('active');
+    if (el.dataset.category === category) {
+      el.classList.add('active');
+    }
+  });
+}
+
+// Show ASCII art (default view)
+function showAsciiArt() {
+  const asciiContainer = document.getElementById('ascii-container');
+  const imageDisplay = document.getElementById('image-display');
+  
+  if (!asciiContainer || !imageDisplay) return;
+  
+  currentDisplayMode = 'ascii';
+  currentCategory = null;
+  
+  // Show ASCII, hide image
+  asciiContainer.style.display = 'block';
+  imageDisplay.style.display = 'none';
+  
+  // Remove active state from all clickable text
+  document.querySelectorAll('.clickable-text').forEach(el => {
+    el.classList.remove('active');
+  });
+}
+
+// Setup click handlers for interactive text
+function setupClickHandlers() {
+  document.querySelectorAll('.clickable-text').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const category = el.dataset.category;
+      if (category && imageCategories[category]) {
+        showCategoryImage(category);
+      }
+    });
+  });
+  
+  // Click on image to cycle through images in category
+  const imageDisplay = document.getElementById('image-display');
+  if (imageDisplay) {
+    imageDisplay.addEventListener('click', () => {
+      if (currentCategory) {
+        const images = imageCategories[currentCategory];
+        currentImageIndex = (currentImageIndex + 2) % images.length;
+        const displayImage1 = document.getElementById('display-image-1');
+        const displayImage2 = document.getElementById('display-image-2');
+        if (displayImage1 && displayImage2) {
+          displayImage1.src = images[currentImageIndex % images.length];
+          displayImage2.src = images[(currentImageIndex + 1) % images.length];
+        }
+      }
+    });
+  }
 }
 
 function renderFooter() {
@@ -759,6 +891,9 @@ function init() {
     } else {
       console.error('ASCII container not found!');
     }
+    
+    // Setup click handlers for interactive text
+    setupClickHandlers();
   }, 100);
 }
 
