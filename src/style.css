@@ -25,29 +25,32 @@ html, body {
 /* Main layout */
 .portfolio-container {
   display: flex;
+  align-items: center;
   height: 100vh;
-  max-width: 100vw;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 40px 40px;
-  gap: 40px;
+  padding: clamp(30px, 4vw, 60px);
+  gap: clamp(24px, 3vw, 48px);
   overflow: hidden;
 }
 
 /* Main content area */
 .main-content {
-  flex: 0 0 500px;
+  flex: 0 0 clamp(320px, 38vw, 560px);
+  width: clamp(320px, 38vw, 560px);
+  height: clamp(320px, 50vh, 500px);
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-left: 100px;
-  margin-top: 80px;
-  padding-bottom: 80px; /* Space for footer */
 }
 
 .content-section {
   font-size: 16px;
   line-height: 1.6;
   color: #333;
+  overflow-y: auto;
+  flex: 1 1 0;
+  min-height: 0;
 }
 
 .content-section p {
@@ -56,6 +59,132 @@ html, body {
 
 .content-section p:last-child {
   margin-bottom: 0;
+}
+
+/* Tab navigation */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tab-link {
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  cursor: pointer;
+  text-transform: lowercase;
+  letter-spacing: 0.3px;
+  padding: 2px 0;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.tab-link:hover {
+  color: #555;
+}
+
+.tab-link.active {
+  color: #B4472C;
+  font-weight: 500;
+}
+
+.tab-separator {
+  font-size: 13px;
+  color: #ccc;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Writings list */
+.writings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.tab-empty-state {
+  color: #888;
+  font-size: 15px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.writing-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.writing-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.writing-title:hover {
+  color: #B4472C;
+}
+
+.writing-date {
+  font-size: 13px;
+  color: #999;
+  font-weight: 400;
+}
+
+.writing-description {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Readings list */
+.readings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.reading-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reading-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.reading-title {
+  color: #B4472C;
+  text-decoration: underline;
+  text-decoration-color: #B4472C;
+  text-underline-offset: 2px;
+}
+
+a.reading-title:hover {
+  text-decoration-color: #943a24;
+}
+
+.reading-author {
+  font-size: 13px;
+  color: #999;
+  font-weight: 400;
+}
+
+.reading-note {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* Highlight text */
@@ -91,8 +220,7 @@ html, body {
   justify-content: center;
   gap: clamp(15px, 3vw, 30px);
   cursor: pointer;
-  margin-top: clamp(80px, 12vh, 150px);
-  padding: 0 clamp(20px, 4vw, 60px);
+  padding: 0 clamp(10px, 2vw, 30px);
   width: 100%;
   max-width: 100%;
 }
@@ -142,10 +270,11 @@ a:hover .highlight {
 /* ASCII Art / Graphic area */
 .graphic-area {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   font-family: 'Courier New', monospace;
   font-size: 2px;
   line-height: 1;
@@ -162,8 +291,6 @@ a:hover .highlight {
   max-height: 80vh;
   overflow: hidden;
   position: relative;
-  margin-top: 150px;
-  margin-left: 40px;
 }
 
 .ascii-art {
@@ -203,7 +330,9 @@ a:hover .highlight {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px clamp(30px, 4vw, 60px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -238,61 +367,19 @@ a:hover .highlight {
 }
 
 /* Responsive design */
+
+/* --- Large desktops / smaller monitors: scale down ASCII art --- */
 @media (max-width: 1400px) {
-  .graphic-area {
-    font-size: 5px;
-    line-height: 1.0;
-  }
-  
   .ascii-container {
     transform: scale(0.85);
-    transform-origin: top left;
-    margin-left: 20px;
+    transform-origin: center center;
   }
 }
 
-@media (max-width: 1200px) {
-  .graphic-area {
-    font-size: 4px;
-    line-height: 1.0;
-  }
-  
+@media (max-width: 1100px) {
   .ascii-container {
     transform: scale(0.6);
-    transform-origin: top left;
-    margin-left: 0;
-    margin-top: 100px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .portfolio-container {
-    padding: 40px 20px 80px;
-    gap: 20px;
-  }
-  
-  .main-content {
-    flex: 0 0 380px;
-    margin-left: 30px;
-    margin-top: 60px;
-  }
-  
-  .graphic-area {
-    font-size: 4px;
-    line-height: 1.0;
-    padding-left: 0;
-  }
-  
-  .ascii-container {
-    transform: scale(0.55);
-    transform-origin: top left;
-    margin-left: 0;
-    margin-top: 80px;
-  }
-  
-  .image-display {
-    margin-top: 100px;
-    gap: 20px;
+    transform-origin: center center;
   }
   
   .image-display .display-img {
@@ -302,41 +389,58 @@ a:hover .highlight {
 }
 
 @media (max-width: 900px) {
-  .main-content {
-    flex: 0 0 350px;
-    margin-left: 20px;
-  }
-  
   .ascii-container {
     transform: scale(0.45);
-    transform-origin: top left;
-    margin-top: 60px;
+    transform-origin: center center;
   }
 }
 
+/* --- Tablet / mobile: switch to stacked column layout --- */
 @media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  #app {
+    overflow: visible;
+    height: auto;
+    min-height: 100vh;
+  }
+
   .portfolio-container {
     flex-direction: column;
-    padding: 30px 20px 100px;
-    gap: 30px;
+    align-items: stretch;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    padding-bottom: 40px;
   }
-  
+
   .main-content {
     flex: none;
-    margin-left: 0;
-    margin-top: 40px;
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 0;
   }
-  
+
+  .content-section {
+    overflow-y: visible;
+    flex: none;
+  }
+
   /* Only hide ASCII container, not the entire graphic area */
   .graphic-area {
     flex: none;
     justify-content: center;
   }
-  
+
   .ascii-container {
     display: none;
   }
-  
+
   /* Image display on smaller screens */
   .image-display {
     margin-top: 30px;
@@ -344,31 +448,37 @@ a:hover .highlight {
     gap: 15px;
     flex-wrap: wrap;
   }
-  
+
   .image-display .display-img {
     width: clamp(150px, 40vw, 220px);
     height: clamp(200px, 55vw, 290px);
     max-width: calc(50% - 10px);
   }
-  
+
+  /* Footer flows in document instead of overlapping content */
   .footer {
+    position: relative;
     flex-direction: column;
     gap: 16px;
     text-align: center;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+    background: none;
+    padding: 30px 20px;
+    pointer-events: auto;
   }
-  
+
   .social-links {
     gap: 20px;
   }
 }
 
-/* Smooth transitions */
-* {
-  transition: color 0.2s ease;
+/* --- Small phones --- */
+@media (max-width: 480px) {
+  .content-section {
+    font-size: 15px;
+  }
 }
+
+/* Transitions are applied per-element (see .clickable-text, .social-link, etc.) */
 
 /* Typography refinements */
 h1, h2, h3 {
@@ -493,9 +603,7 @@ strong {
     gap: 10px;
   }
   
-  /* Smaller screens: stack images vertically if needed */
   .image-display {
-    flex-direction: row;
     gap: 10px;
   }
   
@@ -503,6 +611,31 @@ strong {
     width: clamp(120px, 42vw, 180px);
     height: clamp(160px, 56vw, 240px);
     max-width: calc(50% - 5px);
+  }
+}
+
+/* Very small phones (iPhone SE, older Android) */
+@media (max-width: 360px) {
+  .content-section {
+    font-size: 14px;
+  }
+
+  .polaroid img {
+    width: clamp(60px, 22vw, 80px);
+    height: clamp(60px, 22vw, 80px);
+  }
+
+  .photo-strip {
+    gap: 8px;
+  }
+
+  .image-display .display-img {
+    width: clamp(100px, 42vw, 150px);
+    height: clamp(130px, 56vw, 200px);
+  }
+
+  .footer {
+    padding: 20px 12px;
   }
 }
 

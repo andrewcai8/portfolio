@@ -523,7 +523,7 @@ const mainContent = `
   
   <p>I'm a founding engineer at <a href="https://virio.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Virio</span></a>, hoping to build something that will help the world :)</p>
 
-  <p>In the past, I interned at <a href="https://relixir.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">Relixir (YC X25)</span></a>. Did two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech's Hacktech, winning $16k. And in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
+  <p>In the past, I did two hackathons and <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">won both</span></a>, earning the grand prize at the world's largest AI Hackathon at UC Berkeley and at Caltech's Hacktech, winning $16k. And in high school, I built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">CNC machine</span></a> from scratch.</p>
   
   <p>Outside of code, you'll find me cafe hopping, <span class="clickable-text" data-category="walks">walking around</span>, <span class="clickable-text" data-category="cats">admiring cats</span>, or just reflecting on life.</p>
 
@@ -553,6 +553,41 @@ const personalPhotos = [
   { src: '/images/andrew1.jpg', caption: 'also me', rotate: 2 },
 ];
 
+// Writings data
+const writings = [
+  {
+    title: 'Coming soon',
+    description: 'Thoughts and essays on building startups, creating, life, and everything in between.',
+    url: null,
+    date: '2026',
+  },
+];
+
+// Readings data
+const readings = [
+  {
+    title: 'What Makes Strong Engineers Strong?',
+    author: 'Sean Goedecke',
+    note: 'Self-belief, pragmatism, speed, and technical ability — in that order.',
+    url: 'https://www.seangoedecke.com/what-makes-strong-engineers-strong/',
+  },
+  {
+    title: 'Inside Cursor',
+    author: 'Brie Wolfson — Colossus',
+    note: 'Sixty days embedded with the AI coding decacorn. Culture, recruiting, and what makes it tick.',
+    url: 'https://colossus.com/article/inside-cursor/',
+  },
+  {
+    title: 'Posts on Good Engineers',
+    author: 'Sean Goedecke',
+    note: 'A collection of essays on what separates strong engineers from the rest.',
+    url: 'https://www.seangoedecke.com/tags/good%20engineers/',
+  },
+];
+
+// Current active tab
+let currentTab = 'about';
+
 
 
 // Render functions
@@ -575,11 +610,72 @@ function renderPhotoGallery() {
   `;
 }
 
+function renderTabBar(activeTab) {
+  const tabs = ['about', 'writings', 'readings'];
+  const tabLinks = tabs.map(tab => `
+    <span class="tab-link${tab === activeTab ? ' active' : ''}" data-tab="${tab}">${tab}</span>
+  `).join('<span class="tab-separator">/</span>');
+  
+  return `<nav class="tab-bar">${tabLinks}</nav>`;
+}
+
+function renderAboutContent() {
+  return `${mainContent}`;
+}
+
+function renderWritingsContent() {
+  if (writings.length === 1 && writings[0].title === 'Coming soon') {
+    return `
+      <div class="writings-list">
+        <p class="tab-empty-state">Coming soon — thoughts and essays on building startups, creating, life, and everything in between.</p>
+      </div>
+    `;
+  }
+  
+  const entries = writings.map(entry => `
+    <div class="writing-entry">
+      ${entry.url 
+        ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer" class="writing-title">${entry.title}</a>`
+        : `<span class="writing-title">${entry.title}</span>`
+      }
+      <span class="writing-date">${entry.date}</span>
+      <p class="writing-description">${entry.description}</p>
+    </div>
+  `).join('');
+  
+  return `<div class="writings-list">${entries}</div>`;
+}
+
+function renderReadingsContent() {
+  const entries = readings.map(entry => `
+    <div class="reading-entry">
+      ${entry.url
+        ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer" class="reading-title">${entry.title}</a>`
+        : `<span class="reading-title">${entry.title}</span>`
+      }
+      <span class="reading-author">${entry.author}</span>
+      <p class="reading-note">${entry.note}</p>
+    </div>
+  `).join('');
+  
+  return `<div class="readings-list">${entries}</div>`;
+}
+
+function getTabContent(tab) {
+  switch (tab) {
+    case 'writings': return renderWritingsContent();
+    case 'readings': return renderReadingsContent();
+    case 'about':
+    default: return renderAboutContent();
+  }
+}
+
 function renderMainContent() {
   return `
     <main class="main-content">
-      <div class="content-section">
-        ${mainContent}
+      ${renderTabBar(currentTab)}
+      <div class="content-section" id="tab-content">
+        ${getTabContent(currentTab)}
       </div>
     </main>
   `;
@@ -825,8 +921,35 @@ function showAsciiArt() {
   });
 }
 
-// Setup click handlers for interactive text
-function setupClickHandlers() {
+// Switch between tabs
+function switchTab(tabName) {
+  if (tabName === currentTab) return;
+  currentTab = tabName;
+
+  // Update tab bar active state
+  document.querySelectorAll('.tab-link').forEach(el => {
+    el.classList.toggle('active', el.dataset.tab === tabName);
+  });
+
+  // Swap content
+  const contentSection = document.getElementById('tab-content');
+  if (contentSection) {
+    contentSection.innerHTML = getTabContent(tabName);
+  }
+
+  // Reset to ASCII art when leaving the about tab (images are about-specific)
+  if (tabName !== 'about') {
+    showAsciiArt();
+  }
+
+  // Re-bind clickable-text handlers if we're back on about
+  if (tabName === 'about') {
+    setupClickableTextHandlers();
+  }
+}
+
+// Bind clickable-text (about tab) image-swap handlers
+function setupClickableTextHandlers() {
   document.querySelectorAll('.clickable-text').forEach(el => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
@@ -836,6 +959,20 @@ function setupClickHandlers() {
       }
     });
   });
+}
+
+// Setup click handlers for interactive text
+function setupClickHandlers() {
+  // Tab navigation
+  document.querySelectorAll('.tab-link').forEach(el => {
+    el.addEventListener('click', () => {
+      const tab = el.dataset.tab;
+      if (tab) switchTab(tab);
+    });
+  });
+
+  // About tab: clickable text for image display
+  setupClickableTextHandlers();
   
   // Click on image to cycle through images in category
   const imageDisplay = document.getElementById('image-display');
