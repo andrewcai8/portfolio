@@ -38,7 +38,7 @@ html, body {
 .main-content {
   flex: 0 0 clamp(320px, 38vw, 560px);
   width: clamp(320px, 38vw, 560px);
-  height: clamp(320px, 50vh, 500px);
+  height: clamp(320px, 60vh, 700px);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -48,7 +48,7 @@ html, body {
   font-size: 16px;
   line-height: 1.6;
   color: #333;
-  overflow-y: auto;
+  overflow: hidden;
   flex: 1 1 0;
   min-height: 0;
 }
