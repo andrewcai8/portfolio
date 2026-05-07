@@ -142,51 +142,6 @@ a.writing-title:hover {
   margin: 0;
 }
 
-/* Readings list */
-.readings-list {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.reading-entry {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.reading-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: #222;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a.reading-title {
-  color: #B4472C;
-  text-decoration: underline;
-  text-decoration-color: #B4472C;
-  text-underline-offset: 2px;
-}
-
-a.reading-title:hover {
-  text-decoration-color: #943a24;
-}
-
-.reading-author {
-  font-size: 13px;
-  color: #999;
-  font-weight: 400;
-}
-
-.reading-note {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.5;
-  margin: 0;
-}
-
 /* Highlight text */
 .highlight {
   color:#B4472C ;
@@ -312,18 +267,6 @@ a:hover .highlight {
   contain: layout style paint;
 }
 
-.ascii-char {
-  display: inline;
-  position: relative;
-  transition: none; /* Disable transitions for manual animation control */
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-}
-
-
-
 /* Footer */
 .footer {
   position: fixed;
@@ -364,6 +307,20 @@ a:hover .highlight {
 
 .social-link:hover {
   color: #000;
+  animation: bounce 0.6s;
+}
+
+.social-link:focus {
+  outline: 2px solid #B4472C;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
 }
 
 /* Responsive design */
@@ -471,15 +428,6 @@ a:hover .highlight {
   }
 }
 
-/* --- Small phones --- */
-@media (max-width: 480px) {
-  .content-section {
-    font-size: 15px;
-  }
-}
-
-/* Transitions are applied per-element (see .clickable-text, .social-link, etc.) */
-
 /* Typography refinements */
 h1, h2, h3 {
   font-weight: 500;
@@ -490,123 +438,16 @@ strong {
   font-weight: 600;
 }
 
-/* Photo Gallery - Polaroid Style */
-.photo-gallery {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #eee;
-}
-
-.photo-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: flex-start;
-}
-
-.polaroid {
-  background: #fff;
-  padding: 8px 8px 24px 8px;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    0 4px 20px rgba(0, 0, 0, 0.05);
-  transform: rotate(var(--rotate, 0deg));
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              box-shadow 0.3s ease;
-  cursor: pointer;
-  animation: fadeInUp 0.5s ease forwards;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-}
-
-.polaroid:hover {
-  transform: rotate(0deg) scale(1.08) translateY(-5px);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.15),
-    0 15px 40px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-.polaroid-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.polaroid img {
-  /* Responsive polaroid size: min 80px, prefer 8vw, max 110px */
-  width: clamp(80px, 8vw, 110px);
-  height: clamp(80px, 8vw, 110px);
-  object-fit: cover;
-  display: block;
-  filter: contrast(1.05) saturate(0.95);
-  transition: filter 0.3s ease;
-}
-
-.polaroid:hover img {
-  filter: contrast(1.1) saturate(1.05);
-}
-
-.polaroid-caption {
-  margin-top: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: #666;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  text-transform: lowercase;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: rotate(var(--rotate, 0deg)) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(var(--rotate, 0deg)) translateY(0);
-  }
-}
-
-/* Responsive photo gallery */
-@media (max-width: 768px) {
-  .photo-gallery {
-    margin-top: 30px;
-  }
-  
-  .photo-strip {
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .polaroid {
-    padding: 8px 8px 25px 8px;
-  }
-  
-  .polaroid img {
-    width: clamp(85px, 18vw, 110px);
-    height: clamp(85px, 18vw, 110px);
-  }
-  
-  .polaroid-caption {
-    font-size: 11px;
-  }
-}
-
+/* --- Small phones --- */
 @media (max-width: 480px) {
-  .polaroid img {
-    width: clamp(70px, 20vw, 90px);
-    height: clamp(70px, 20vw, 90px);
+  .content-section {
+    font-size: 15px;
   }
-  
-  .photo-strip {
-    gap: 10px;
-  }
-  
+
   .image-display {
     gap: 10px;
   }
-  
+
   .image-display .display-img {
     width: clamp(120px, 42vw, 180px);
     height: clamp(160px, 56vw, 240px);
@@ -620,15 +461,6 @@ strong {
     font-size: 14px;
   }
 
-  .polaroid img {
-    width: clamp(60px, 22vw, 80px);
-    height: clamp(60px, 22vw, 80px);
-  }
-
-  .photo-strip {
-    gap: 8px;
-  }
-
   .image-display .display-img {
     width: clamp(100px, 42vw, 150px);
     height: clamp(130px, 56vw, 200px);
@@ -636,39 +468,5 @@ strong {
 
   .footer {
     padding: 20px 12px;
-  }
-}
-
-/* Focus styles for accessibility */
-.social-link:focus {
-  outline: 2px solid #002FA7;
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-.social-link {
-  display: inline-block;
-  margin: 0 10px;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease-in-out;
-}
-
-.social-link:hover {
-  animation: bounce 0.6s;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-8px);
-  }
-  50% {
-    transform: translateY(0px);
-  }
-  70% {
-    transform: translateY(-4px);
   }
 }
