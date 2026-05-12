@@ -61,72 +61,43 @@ html, body {
   margin-bottom: 0;
 }
 
-/* Tab navigation */
-.tab-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: -12px 0 20px 0;
 }
 
-.tab-link {
-  font-size: 14px;
-  font-weight: 400;
+.about-list li {
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 2px;
+}
+
+.about-list li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
   color: #999;
-  cursor: pointer;
-  text-transform: lowercase;
-  letter-spacing: 0.3px;
-  padding: 2px 0;
-  transition: color 0.2s ease;
-  user-select: none;
+  font-weight: 700;
 }
 
-.tab-link:hover {
-  color: #555;
+/* Inline writings list on the about view */
+.writings-inline {
+  margin-top: 8px;
 }
 
-.tab-link.active {
-  color: #B4472C;
-  font-weight: 500;
+.writings-inline > p {
+  margin-bottom: 0;
 }
 
-.tab-separator {
-  font-size: 13px;
-  color: #ccc;
-  user-select: none;
-  pointer-events: none;
-}
-
-/* Writings list */
-.writings-list {
+.writings-list li {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
+  align-items: baseline;
+  gap: 8px;
 }
 
-.tab-empty-state {
-  color: #888;
-  font-size: 15px;
-  line-height: 1.6;
-  font-style: italic;
-}
-
-.writing-entry {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.writing-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: #222;
+.writing-link {
   text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a.writing-title:hover {
-  color: #B4472C;
 }
 
 .writing-date {
@@ -135,11 +106,51 @@ a.writing-title:hover {
   font-weight: 400;
 }
 
-.writing-description {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.5;
+/* Full writing view */
+.writing-full {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.back-link {
+  font-size: 13px;
+  color: #999;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #B4472C;
+}
+
+.writing-full-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222;
+  margin: 4px 0 0 0;
+}
+
+.writing-full-date {
+  font-size: 13px;
+  color: #999;
   margin: 0;
+}
+
+.writing-full-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-top: 8px;
+}
+
+.writing-full-body p {
+  margin-bottom: 16px;
+}
+
+.writing-full-body p:last-child {
+  margin-bottom: 0;
 }
 
 /* Highlight text */
