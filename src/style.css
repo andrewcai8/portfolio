@@ -159,63 +159,6 @@ html, body {
   font-weight: 500;
 }
 
-/* Clickable interactive text - styled like links */
-.clickable-text {
-  color: #B4472C;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: underline;
-  text-decoration-color: #B4472C;
-  text-underline-offset: 2px;
-  transition: all 0.2s ease;
-}
-
-.clickable-text:hover {
-  text-decoration-color: #943a24;
-}
-
-.clickable-text.active {
-  color: #943a24;
-  text-decoration-color: #943a24;
-}
-
-/* Image display area */
-.image-display {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: clamp(15px, 3vw, 30px);
-  cursor: pointer;
-  padding: 0 clamp(10px, 2vw, 30px);
-  width: 100%;
-  max-width: 100%;
-}
-
-.image-display .display-img {
-  /* Responsive width: min 200px, prefer 22vw, max 320px */
-  width: clamp(200px, 22vw, 320px);
-  /* Responsive height: min 260px, prefer 30vw, max 420px */
-  height: clamp(260px, 30vw, 420px);
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-  animation: imageSlideIn 0.4s ease-out;
-  /* Ensure images don't overflow container */
-  max-width: calc(50% - 15px);
-  flex-shrink: 1;
-}
-
-@keyframes imageSlideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
 /* Remove default link styling */
 a {
   text-decoration: none;
@@ -318,20 +261,12 @@ a:hover .highlight {
 
 .social-link:hover {
   color: #000;
-  animation: bounce 0.6s;
 }
 
 .social-link:focus {
   outline: 2px solid #B4472C;
   outline-offset: 2px;
   border-radius: 2px;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-8px); }
-  50% { transform: translateY(0); }
-  70% { transform: translateY(-4px); }
 }
 
 /* Responsive design */
@@ -348,11 +283,6 @@ a:hover .highlight {
   .ascii-container {
     transform: scale(0.6);
     transform-origin: center center;
-  }
-  
-  .image-display .display-img {
-    width: clamp(180px, 25vw, 280px);
-    height: clamp(240px, 35vw, 370px);
   }
 }
 
@@ -409,20 +339,6 @@ a:hover .highlight {
     display: none;
   }
 
-  /* Image display on smaller screens */
-  .image-display {
-    margin-top: 30px;
-    padding: 0 15px;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .image-display .display-img {
-    width: clamp(150px, 40vw, 220px);
-    height: clamp(200px, 55vw, 290px);
-    max-width: calc(50% - 10px);
-  }
-
   /* Footer flows in document instead of overlapping content */
   .footer {
     position: relative;
@@ -454,27 +370,12 @@ strong {
   .content-section {
     font-size: 15px;
   }
-
-  .image-display {
-    gap: 10px;
-  }
-
-  .image-display .display-img {
-    width: clamp(120px, 42vw, 180px);
-    height: clamp(160px, 56vw, 240px);
-    max-width: calc(50% - 5px);
-  }
 }
 
 /* Very small phones (iPhone SE, older Android) */
 @media (max-width: 360px) {
   .content-section {
     font-size: 14px;
-  }
-
-  .image-display .display-img {
-    width: clamp(100px, 42vw, 150px);
-    height: clamp(130px, 56vw, 200px);
   }
 
   .footer {

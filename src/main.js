@@ -347,30 +347,21 @@ const asciiArtTwo = `
 
 // About-tab content
 const mainContent = `
-  <p>hey, i'm <span class="clickable-text" data-category="andrew">andrew</span>. i hope to make something meaningful.</p>
+  <p>hey, i'm andrew.</p>
 
-  <p>prior life:</p>
+  <p>i hope to make something meaningful.</p>
+
+  <p>before:</p>
   <ul class="about-list">
     <li>first engineer at <a href="https://virio.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">virio</span></a></li>
     <li>won $36k at 3 <a href="https://devpost.com/andrewcai8" target="_blank" rel="noopener noreferrer"><span class="highlight">hackathons</span></a></li>
     <li>built a <a href="https://photos.app.goo.gl/DgvWgtRFLeQZtrvg8" target="_blank" rel="noopener noreferrer"><span class="highlight">cnc machine</span></a> in high school</li>
   </ul>
 
-  <p>for fun, you'll find me traveling, <span class="clickable-text" data-category="walks">walking around</span>, or <span class="clickable-text" data-category="cats">admiring cats</span>.</p>
+  <p>for fun, you'll find me traveling, walking around, or admiring cats.</p>
 
   <p>reach out: andrewca78[at]gmail[dot]com</p>
 `;
-
-// Image categories mapping
-const imageCategories = {
-  andrew: ["/images/andrew.png", "/images/andrew1.jpg"],
-  cats: ["/images/cat.jpg", "/images/cat1.jpg"],
-  walks: ["/images/scenery1.jpg", "/images/scenery2.jpg"],
-};
-
-// Image-display state (driven by clickable text on the about tab)
-let currentCategory = null;
-let currentImageIndex = 0;
 
 // Writings entries. Each entry: { title, date, content (HTML string) }.
 // Listed inline at the bottom of the about view; clicking a title opens
@@ -593,67 +584,8 @@ function renderGraphicArea() {
   return `
     <div class="graphic-area">
       <div id="ascii-container" class="ascii-container"></div>
-      <div id="image-display" class="image-display" style="display: none;">
-        <img id="display-image-1" class="display-img" src="" alt="" />
-        <img id="display-image-2" class="display-img" src="" alt="" />
-      </div>
     </div>
   `;
-}
-
-// Show image for a category
-function showCategoryImage(category) {
-  const asciiContainer = document.getElementById("ascii-container");
-  const imageDisplay = document.getElementById("image-display");
-  const displayImage1 = document.getElementById("display-image-1");
-  const displayImage2 = document.getElementById("display-image-2");
-
-  if (!asciiContainer || !imageDisplay || !displayImage1 || !displayImage2)
-    return;
-
-  // If clicking the same category, cycle to next image pair
-  if (currentCategory === category) {
-    currentImageIndex =
-      (currentImageIndex + 2) % imageCategories[category].length;
-  } else {
-    currentCategory = category;
-    currentImageIndex = 0;
-  }
-
-  // Hide ASCII, show images
-  asciiContainer.style.display = "none";
-  imageDisplay.style.display = "flex";
-
-  // Set image sources (show two images side by side)
-  const images = imageCategories[category];
-  displayImage1.src = images[currentImageIndex % images.length];
-  displayImage1.alt = category;
-  displayImage2.src = images[(currentImageIndex + 1) % images.length];
-  displayImage2.alt = category;
-
-  // Update active state on clickable text
-  document.querySelectorAll(".clickable-text").forEach((el) => {
-    el.classList.remove("active");
-    if (el.dataset.category === category) {
-      el.classList.add("active");
-    }
-  });
-}
-
-// Show ASCII art (default view)
-function showAsciiArt() {
-  const asciiContainer = document.getElementById("ascii-container");
-  const imageDisplay = document.getElementById("image-display");
-
-  if (!asciiContainer || !imageDisplay) return;
-
-  currentCategory = null;
-  asciiContainer.style.display = "block";
-  imageDisplay.style.display = "none";
-
-  document.querySelectorAll(".clickable-text").forEach((el) => {
-    el.classList.remove("active");
-  });
 }
 
 function setView(next) {
@@ -663,24 +595,11 @@ function setView(next) {
   const section = document.getElementById("view-content");
   if (section) section.innerHTML = getViewContent();
 
-  // Writings are about-specific — drop back to ASCII when leaving the about view
-  if (next !== "about") showAsciiArt();
-
   bindViewHandlers();
 }
 
 // Re-bound after every view swap (the view's innerHTML is replaced wholesale).
 function bindViewHandlers() {
-  document.querySelectorAll(".clickable-text").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      const category = el.dataset.category;
-      if (category && imageCategories[category]) {
-        showCategoryImage(category);
-      }
-    });
-  });
-
   document.querySelectorAll(".writing-link").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
@@ -694,27 +613,6 @@ function bindViewHandlers() {
     back.addEventListener("click", (e) => {
       e.preventDefault();
       setView("about");
-    });
-  }
-}
-
-// Bound once at startup — the image display lives outside the swappable view.
-function setupClickHandlers() {
-  bindViewHandlers();
-
-  const imageDisplay = document.getElementById("image-display");
-  if (imageDisplay) {
-    imageDisplay.addEventListener("click", () => {
-      if (currentCategory) {
-        const images = imageCategories[currentCategory];
-        currentImageIndex = (currentImageIndex + 2) % images.length;
-        const displayImage1 = document.getElementById("display-image-1");
-        const displayImage2 = document.getElementById("display-image-2");
-        if (displayImage1 && displayImage2) {
-          displayImage1.src = images[currentImageIndex % images.length];
-          displayImage2.src = images[(currentImageIndex + 1) % images.length];
-        }
-      }
     });
   }
 }
@@ -748,7 +646,7 @@ function init() {
   const container = document.getElementById("ascii-container");
   new ASCIIArtAnimator(container, [asciiArt, asciiArtTwo]);
 
-  setupClickHandlers();
+  bindViewHandlers();
 }
 
 init();
