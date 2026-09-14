@@ -373,6 +373,7 @@ const asciiArtTwo = `
 // About-tab content (split so the writings list slots in after the intro)
 const aboutIntro = `
   <p>hey, i'm andrew. i hope to make something meaningful.</p>
+  <p>currently building in consumer in nyc.</p>
 `;
 
 const aboutMiddle = `
