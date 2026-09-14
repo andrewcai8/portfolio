@@ -1,4 +1,8 @@
 /* Reset and base styles */
+:root {
+  --paragraph-gap: 8px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -38,23 +42,23 @@ html, body {
 .main-content {
   flex: 0 0 clamp(320px, 38vw, 560px);
   width: clamp(320px, 38vw, 560px);
-  height: clamp(320px, 60vh, 700px);
+  height: auto;
+  max-height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  justify-content: center;
 }
 
 .content-section {
   font-size: 16px;
   line-height: 1.6;
   color: #333;
-  overflow: hidden;
-  flex: 1 1 0;
+  overflow: auto;
   min-height: 0;
 }
 
 .content-section p {
-  margin-bottom: 20px;
+  margin-bottom: var(--paragraph-gap);
 }
 
 .content-section p:last-child {
@@ -64,7 +68,7 @@ html, body {
 .about-list {
   list-style: none;
   padding: 0;
-  margin: -12px 0 20px 0;
+  margin: 0 0 var(--paragraph-gap) 0;
 }
 
 .about-list li {
@@ -82,14 +86,6 @@ html, body {
 }
 
 /* Inline writings list on the about view */
-.writings-inline {
-  margin-top: 8px;
-}
-
-.writings-inline > p {
-  margin-bottom: 0;
-}
-
 .writings-list li {
   display: flex;
   align-items: baseline;

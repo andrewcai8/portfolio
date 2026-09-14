@@ -1,4 +1,29 @@
 import "./style.css";
+import { marked } from "marked";
+
+// Writings are markdown files in /writings/ with frontmatter (title, date).
+// Filenames should be YYYY-MM-DD-slug.md so newest sorts first.
+const writingFiles = import.meta.glob("/writings/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
+
+function parseWriting(raw) {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return { title: "untitled", date: "", content: marked.parse(raw) };
+  const fm = {};
+  for (const line of match[1].split("\n")) {
+    const idx = line.indexOf(":");
+    if (idx === -1) continue;
+    fm[line.slice(0, idx).trim()] = line.slice(idx + 1).trim();
+  }
+  return {
+    title: fm.title || "untitled",
+    date: fm.date || "",
+    content: marked.parse(match[2]),
+  };
+}
 
 const asciiArt = `
                                ;++++
@@ -345,12 +370,12 @@ const asciiArtTwo = `
                                                                                           =+=+=++++========++++*******#####%%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%@@@@@@%%%%%%%%%%######**********++
                                                                                            =================+++*******####%%%%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%%%#######********++`;
 
-// About-tab content
-const mainContent = `
-  <p>hey, i'm andrew.</p>
+// About-tab content (split so the writings list slots in after the intro)
+const aboutIntro = `
+  <p>hey, i'm andrew. i hope to make something meaningful.</p>
+`;
 
-  <p>i hope to make something meaningful.</p>
-
+const aboutMiddle = `
   <p>before:</p>
   <ul class="about-list">
     <li>first engineer at <a href="https://virio.ai" target="_blank" rel="noopener noreferrer"><span class="highlight">virio</span></a></li>
@@ -359,14 +384,17 @@ const mainContent = `
   </ul>
 
   <p>for fun, you'll find me traveling, walking around, or admiring cats.</p>
+`;
 
+const aboutOutro = `
   <p>reach out: andrewca78[at]gmail[dot]com</p>
 `;
 
-// Writings entries. Each entry: { title, date, content (HTML string) }.
-// Listed inline at the bottom of the about view; clicking a title opens
-// the full writing.
-const writings = [];
+// Writings entries, loaded from /writings/*.md at build time.
+// Sorted by filename descending so newest (YYYY-MM-DD-...) appears first.
+const writings = Object.entries(writingFiles)
+  .sort(([a], [b]) => b.localeCompare(a))
+  .map(([, raw]) => parseWriting(raw));
 
 // 'about' or numeric index into `writings`
 let currentView = "about";
@@ -406,7 +434,7 @@ function renderWritingView(index) {
 }
 
 function getViewContent() {
-  if (currentView === "about") return `${mainContent}${renderWritingsList()}`;
+  if (currentView === "about") return `${aboutIntro}${aboutMiddle}${renderWritingsList()}${aboutOutro}`;
   return renderWritingView(currentView);
 }
 
